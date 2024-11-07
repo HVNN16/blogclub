@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:blog_club/model/post_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:blog_club/model/category_model.dart';
 import 'package:blog_club/model/story_model.dart';
@@ -31,6 +32,17 @@ class ApiService {
     } else {
       // If the server returns an error response
       throw Exception('Failed to load categories');
+    }
+  }
+  // Fetch Posts from the API
+  Future<List<Post>> fetchPosts() async {
+    final response = await http.get(Uri.parse('$baseUrl/posts'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      return data.map((json) => Post.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load posts');
     }
   }
 }

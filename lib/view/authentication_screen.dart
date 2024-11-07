@@ -1,4 +1,5 @@
 import 'package:blog_club/constant.dart';
+import 'package:blog_club/view/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -135,7 +136,12 @@ class _Login extends StatelessWidget {
                     Size(MediaQuery.sizeOf(context).width, 60)),
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)))),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                              context, 
+                              MaterialPageRoute(builder: (context) => const MainScreen()),
+                            );
+            },
             child: const Text("LOGIN")),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -235,7 +241,12 @@ class _SignUp extends StatelessWidget {
                     Size(MediaQuery.sizeOf(context).width, 60)),
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)))),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                              context, 
+                              MaterialPageRoute(builder: (context) => const AuthenticationScreen()),
+                            );
+            },
             child: const Text("SIGN UP")),
         const SizedBox(
           height: 25,

@@ -1,5 +1,6 @@
 import 'package:blog_club/constant.dart';
 import 'package:blog_club/model/onboarding_model.dart';
+import 'package:blog_club/view/authentication_screen.dart';
 import 'package:blog_club/view/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +104,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const MainScreen(),
+                                  // builder: (context) => const MainScreen(),
+                                  builder: (context) => const AuthenticationScreen(),
                                 ));
                           }else {
                             _pageController.animateToPage(page+1, duration: const Duration(milliseconds: 500), curve: Curves.decelerate);

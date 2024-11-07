@@ -16,34 +16,17 @@ class Post {
     required this.isBookmarked,
     required this.imageFileName,
   });
-}
 
-const List<Post> posts = [
-  Post(
-    id: 1,
-    title: 'BMW M5 Competition Review 2021',
-    caption: 'TOP GEAR',
-    isBookmarked: false,
-    likes: '3.1k',
-    time: '1hr ago',
-    imageFileName: 'assets/img/posts/small/small_post_1.jpg',
-  ),
-  Post(
-    id: 0,
-    title: 'MacBook Pro with M1 Pro and M1 Max review',
-    caption: 'THE VERGE',
-    isBookmarked: false,
-    likes: '1.2k',
-    time: '2hr ago',
-    imageFileName: 'assets/img/posts/small/small_post_2.jpg',
-  ),
-  Post(
-    id: 2,
-    title: 'Step design sprint for UX beginner',
-    caption: 'Ux Design',
-    isBookmarked: true,
-    likes: '2k',
-    time: '41hr ago',
-    imageFileName: 'assets/img/posts/small/small_post_3.jpg',
-  ),
-];
+  // Factory constructor to create Post from JSON
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      id: json['id'],
+      caption: json['caption'],
+      title: json['title'],
+      likes: json['likes'],
+      time: json['time'],
+      isBookmarked: json['isBookmarked'],
+      imageFileName: json['imageFileName'],
+    );
+  }
+}

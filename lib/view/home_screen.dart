@@ -1,11 +1,12 @@
-import 'package:blog_club/widget/story_item.dart';
 import 'package:flutter/material.dart';
-import '../model/post_model.dart';
-import '../widget/category_slider.dart';
-import '../api_service.dart';
+import 'package:blog_club/api_service.dart';
 import 'package:blog_club/model/category_model.dart';
 import 'package:blog_club/model/story_model.dart';
-import 'package:blog_club/widget/post_card.dart';  // Assuming you also have this widget
+import 'package:blog_club/widget/category_slider.dart';
+import 'package:blog_club/widget/story_item.dart';
+import 'package:blog_club/widget/post_card.dart'; // Assuming you also have this widget
+
+import '../model/post_model.dart'; // Import the Post model
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,18 +18,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ApiService apiService = ApiService('https://api-blog-riin.onrender.com');
   List<Category> categories = [];
-  List<Story> stories = [];  // Assuming you have this list from your previous setup
-  bool isLoadingCategories = true; // To track category loading
-  bool isLoadingStories = true; // For story loading (keep this for your stories if needed)
+  List<Story> stories = [];
+  List<Post> posts = [];  // List to store posts
+  bool isLoadingCategories = true;
+  bool isLoadingStories = true;
+  bool isLoadingPosts = true; // Loading state for posts
 
   @override
   void initState() {
     super.initState();
     fetchCategories(); // Fetch categories on init
     fetchStories(); // Fetch stories if you are still using them
+    fetchPosts(); // Fetch posts from the API
   }
 
-  // Fetch categories from the API
+  // Fetch categories
   Future<void> fetchCategories() async {
     try {
       categories = await apiService.fetchCategories(); // Fetch categories
@@ -41,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // If you still want to fetch stories, here's an example
+  // Fetch stories
   Future<void> fetchStories() async {
     try {
       stories = await apiService.fetchStories(); // Fetch stories from API
@@ -54,11 +58,24 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // Fetch posts
+  Future<void> fetchPosts() async {
+    try {
+      posts = await apiService.fetchPosts(); // Fetch posts from the API
+    } catch (error) {
+      print("Error fetching posts: $error");
+    } finally {
+      setState(() {
+        isLoadingPosts = false; // Update loading state for posts
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: isLoadingCategories || isLoadingStories
+        body: isLoadingCategories || isLoadingStories || isLoadingPosts
             ? const Center(child: CircularProgressIndicator()) // Show loading spinner
             : SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -97,9 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           scrollDirection: Axis.horizontal,
                           itemCount: stories.length,
                           itemBuilder: (context, index) {
-                            return StoryItem(
-                              story: stories[index],
-                            );
+                            return StoryItem(story: stories[index]);
                           },
                         ),
                       ),
@@ -107,13 +122,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Category Slider
                       categories.isEmpty
-                          ? const Center(child: CircularProgressIndicator())  // Loading indicator
+                          ? const Center(child: CircularProgressIndicator())
                           : CategorySlider(categories: categories), // Pass categories to CategorySlider
 
                       const SizedBox(height: 20),
 
-                      
-                      // Latest News Section (Keep this part as it is)
+                      // Latest News Section
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -127,14 +141,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Display the posts list
                       ListView.builder(
-                        itemCount: posts.length, // Use the posts list here
+                        itemCount: posts.length,
                         scrollDirection: Axis.vertical,
                         physics: const ClampingScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return PostCard(
-                            post: posts[index], // Pass each post to PostCard
-                          );
+                          return PostCard(post: posts[index]); // Display each post
                         },
                       ),
                     ],
