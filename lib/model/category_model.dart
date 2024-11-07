@@ -9,12 +9,12 @@ class Category {
     required this.imageFileName,
   });
 
-  // From JSON
+  // Factory method to convert JSON into a Category object
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
       id: json['id'],
       title: json['title'],
-      imageFileName: json['imageFileName'],
+      imageFileName: json['imageFileName'],  // Image file URL or path
     );
   }
 }
