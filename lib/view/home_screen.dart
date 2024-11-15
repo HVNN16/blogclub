@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final ApiService apiService = ApiService('http://localhost:8080');
+  final ApiService apiService = ApiService('https://api-blog-riin.onrender.com');
   List<Category> categories = [];
   List<Story> stories = [];
   List<Post> posts = [];  // List to store posts
