@@ -11,7 +11,7 @@ class ApiService {
 
   // Fetch stories from the API
   Future<List<Story>> fetchStories() async {
-    final response = await http.get(Uri.parse('$baseUrl/stories'));
+    final response = await http.get(Uri.parse('$baseUrl/stories/api'));
 
     if (response.statusCode == 200) {
       List<dynamic> jsonData = json.decode(response.body);
@@ -23,7 +23,7 @@ class ApiService {
 
   // Fetch categories from the API
   Future<List<Category>> fetchCategories() async {
-    final response = await http.get(Uri.parse('$baseUrl/categories'));
+    final response = await http.get(Uri.parse('$baseUrl/categories/api'));
 
     if (response.statusCode == 200) {
       // If the server returns a successful response
@@ -36,7 +36,7 @@ class ApiService {
   }
   // Fetch Posts from the API
   Future<List<Post>> fetchPosts() async {
-    final response = await http.get(Uri.parse('$baseUrl/posts'));
+    final response = await http.get(Uri.parse('$baseUrl/posts/api'));
 
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);

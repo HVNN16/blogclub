@@ -1,4 +1,3 @@
-// lib/model/story_model.dart
 class Story {
   final int id;
   final String name;
@@ -16,11 +15,11 @@ class Story {
 
   factory Story.fromJson(Map<String, dynamic> json) {
     return Story(
-      id: json['id'],
-      name: json['name'],
-      imageFileName: json['imageFileName'],
-      iconFileName: json['iconFileName'],
-      isViewed: json['isViewed'],
+      id: json['id'] ?? 0,  // Nếu không có giá trị cho id, gán mặc định là 0
+      name: json['name'] ?? 'Unknown',  // Nếu name là null, gán mặc định là 'Unknown'
+      imageFileName: json['imageFileName'] ?? '',  // Nếu không có imageFileName, gán chuỗi rỗng
+      iconFileName: json['iconFileName'] ?? '',  // Nếu không có iconFileName, gán chuỗi rỗng
+      isViewed: json['isViewed'] ?? false,  // Nếu không có isViewed, gán mặc định là false
     );
   }
 }

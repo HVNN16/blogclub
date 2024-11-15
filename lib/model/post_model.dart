@@ -20,7 +20,7 @@ class Post {
   // Factory constructor to create Post from JSON
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      id: json['id'],
+      id: json['id'] ,
       caption: json['caption'],
       title: json['title'],
       likes: json['likes'],
